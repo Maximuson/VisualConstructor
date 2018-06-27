@@ -37,6 +37,18 @@
     <script src="js/DragManager.js"></script>
    
    <script>
+       constr = document.querySelector('#constr')
+       constr.innerHTML = localStorage.getItem('ourBody')
+    function getCoords(elem) { // кроме IE8-
+	    var box = elem.getBoundingClientRect();
+	        return {
+		        top: box.top + pageYOffset,
+		        left: box.left + pageXOffset,
+		       // right: box.right + pageXOffset,
+		       // bottom: box.bottom + pageYOffset
+	        };
+    }
+
         DragManager.onDragCancel = function(dragObject) {
             dragObject.avatar.rollback();
         };
@@ -44,6 +56,10 @@
         DragManager.onDragEnd = function(dragObject, dropElem) {
             if (dropElem.classList.contains("corsina"))
                 dragObject.elem.style.display = 'none';
+
+            
+            
+            
             //dropElem.classList.add('computer-smile');
             setTimeout(function() {
                // dropElem.classList.remove('computer-smile');

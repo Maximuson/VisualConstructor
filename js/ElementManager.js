@@ -3,6 +3,7 @@ function createP(constr, element){
     constr.appendChild(newElement);
     newElement.classList.add('draggable');
     newElement.textContent = "Example text";
+    
 }
 
 let cstrArea = document.querySelector('#constr');

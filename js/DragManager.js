@@ -50,9 +50,33 @@ var DragManager = new function() {
 		return false;
 	}
 
+	function addToOurBody(e){
+		ourBody = getCoords(constr)
+		ourItem = getCoords(e.target)
+		console.log(ourBody)
+		console.log(ourItem)
+		
+		if (ourItem.left > ourBody.left && 
+			ourItem.right < ourBody.right &&
+			ourItem.bottom <= ourBody.bottom
+			) 
+			{	constr = document.querySelector('#constr')
+				console.log('we Can Add IT item')
+				constr.appendChild(e.target)	
+				localStorage.setItem('ourBody',constr.innerHTML )
+				console.log(localStorage.getItem('ourBody'))
+			}
+			else {
+				// constr = document.querySelector('#constr')
+				// constr.removeChild(e.target)
+				// localStorage.setItem('ourBody',constr.innerHTML )
+				
+			}
+	}
 	function onMouseUp(e) {
 		if (dragObject.avatar) { // если перенос идет
 			finishDrag(e);
+			addToOurBody(e)
 		}
 		// перенос либо не начинался, либо завершился
 		// в любом случае очистим "состояние переноса" dragObject
@@ -117,12 +141,15 @@ var DragManager = new function() {
 	document.onmousedown = onMouseDown;
 	this.onDragEnd = function(dragObject, dropElem) {};
 	this.onDragCancel = function(dragObject) {};
+	
 };
 
 function getCoords(elem) { // кроме IE8-
 	var box = elem.getBoundingClientRect();
 	return {
 		top: box.top + pageYOffset,
-		left: box.left + pageXOffset
+		left: box.left + pageXOffset,
+		right: box.right + pageXOffset,
+		bottom: box.bottom + pageYOffset
 	};
 }
